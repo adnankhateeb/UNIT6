@@ -7,6 +7,9 @@ import { addCities } from "../Redux/action";
 const TableFn = () => {
    const [cities, setCities] = useState([]);
    const [sortedCities, setSortedCities] = useState([]);
+
+
+
    const redCities = useSelector((store) => store.cities);
    const dispatch = useDispatch();
 
@@ -18,6 +21,29 @@ const TableFn = () => {
       });
    };
 
+   const handleFilter = (e) => {
+      const { value } = e.target;
+      setSortedCities(
+         cities.filter((e) => {
+            return e.country === value;
+         })
+      );
+   };
+
+   const handleSort = (e) => {
+      let sorted;
+      if (e.target.value === "Ascending") {
+         sorted = cities.sort((a, b) => {
+            return a.population - b.population;
+         });
+      } else {
+         sorted = cities.sort((a, b) => {
+            return b.population - a.population;
+         });
+      }
+      setSortedCities([...sorted]);
+   };
+
    useEffect(() => {
       getCities();
    }, []);
@@ -25,15 +51,15 @@ const TableFn = () => {
       <div>
          <div className="flex">
             <label htmlFor="filterCountry">Filter by Country</label>
-            <select name="filterCountry">
-               {sortedCities.map((e) => {
+            <select name="filterCountry" onChange={handleFilter}>
+               {cities.map((e) => {
                   return <option>{e.country}</option>;
                })}
             </select>
             <label htmlFor="sort">Sort</label>
-            <select name="sort">
-               <option>Ascending</option>
-               <option>Descending</option>
+            <select name="sort" onChange={handleSort}>
+               <option name="asc">Ascending</option>
+               <option name="desc">Descending</option>
             </select>
          </div>
          <Table striped bordered hover>
