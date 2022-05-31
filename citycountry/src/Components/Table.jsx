@@ -47,6 +47,7 @@ const TableFn = () => {
    useEffect(() => {
       getCities();
    }, []);
+   
    return (
       <div>
          <div className="flex">
