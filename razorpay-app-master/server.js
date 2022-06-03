@@ -25,7 +25,7 @@ app.get('/get-razorpay-key', (req, res) => {
   res.send({ key: process.env.RAZORPAY_KEY_ID });
 });
 
-app.post('/create-order', async (req, res) => {
+app.post('/create', async (req, res) => {
   try {
     const instance = new Razorpay({
       key_id: process.env.RAZORPAY_KEY_ID,
@@ -43,7 +43,7 @@ app.post('/create-order', async (req, res) => {
   }
 });
 
-app.post('/pay-order', async (req, res) => {
+app.post('/pay', async (req, res) => {
   try {
     const { amount, razorpayPaymentId, razorpayOrderId, razorpaySignature } =
       req.body;

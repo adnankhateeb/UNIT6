@@ -24,7 +24,7 @@ function App() {
     script.onload = async () => {
       try {
         setLoading(true);
-        const result = await axios.post('/create-order', {
+        const result = await axios.post('/create', {
           amount: orderAmount + '00',
         });
         const { amount, id: order_id, currency } = result.data;
@@ -40,7 +40,7 @@ function App() {
           description: 'example transaction',
           order_id: order_id,
           handler: async function (response) {
-            const result = await axios.post('/pay-order', {
+            const result = await axios.post('/pay', {
               amount: amount,
               razorpayPaymentId: response.razorpay_payment_id,
               razorpayOrderId: response.razorpay_order_id,
