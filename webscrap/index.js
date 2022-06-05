@@ -1,61 +1,50 @@
-const puppeteer = require("puppeteer");
-let URL = "https://careers.google.com/jobs/results/?distance=50&q=react";
-
-const fs = require("fs/promises");
-
-async function start() {
-   const browser = await puppeteer.launch();
-   const page = await browser.newPage();
-   await page.goto(URL);
-
-   await page.waitForTimeout(500);
-
-   const names = await page.evaluate(() => {
-      return Array.from(
-         document.querySelectorAll(
-            "#search-results > li > a > div > div.gc-card__header > h2"
-         )
-      ).map((x) => {
-         return x.textContent.trim();
-      });
-   });
-
-   const companies = await page.evaluate(() => {
-      return Array.from(
-         document.querySelectorAll(
-            "#search-results > li > a > div > div.gc-card__header > div > ul > li.gc-job-tags__team > span"
-         )
-      ).map((x) => {
-         return x.textContent.trim();
-      });
-   });
-
-   const locations = await page.evaluate(() => {
-      return Array.from(
-         document.querySelectorAll(
-            "#search-results > li > a > div > div.gc-card__header > div > ul > li.gc-job-tags__location > div > span"
-         )
-      ).map((x) => {
-         return x.textContent.trim();
-      });
-   });
-   let all = [];
-
-   for (let i = 0; i < names.length; i++) {
-      let obj = {
-         jobTitle: names[i],
-         company: companies[i],
-         location: locations[i],
-      };
-      all.push(obj);
+let url = "http://localhost:5000";
+let getData = async () => {
+   try {
+      let fetched = await fetch(url);
+      let dataFetched = await fetched.json();
+      console.log("dataFetched:", dataFetched);
+      return dataFetched;
+   } catch (error) {
+      console.log(error);
    }
-   console.log(all);
-   // await fs.writeFile("names.txt", names.join("\r\n"));
-   // await fs.writeFile("companies.txt", companies.join("\r\n"));
-   // await fs.writeFile("locations.txt", locations.join("\r\n"));
-   await fs.writeFile("AllDetails.json", JSON.stringify(all));
+};
 
-   await browser.close();
-}
+let data = await getData();
+console.log("data:", data);
 
-start();
+let append = (data) => {
+   let container = document.querySelector(".containerForJobs");
+
+   data.map((elem) => {
+      let card = document.createElement("div");
+      card.classList.add("card");
+      card.style = "width: 100%";
+
+      let body = document.createElement("div");
+      body.classList.add("card-body");
+
+      let title = document.createElement("h5");
+      title.classList.add("card-title");
+      title.innerText = elem.jobTitle;
+
+      let company = document.createElement("h6");
+      company.classList.add("card-subtitle");
+      company.innerText = elem.company;
+
+      let location = document.createElement("h6");
+      location.classList.add("card-subtitle");
+      location.classList.add("text-muted");
+      location.style = "margin-top : 2px"
+      location.innerText = elem.location;
+
+      let details = document.createElement("p");
+      details.classList.add("card-text");
+      details.innerText = elem.details;
+
+      body.append(title, company, location, details);
+      card.append(body);
+      container.append(card);
+   });
+};
+append(data);

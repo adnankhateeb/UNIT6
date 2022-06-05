@@ -3,12 +3,14 @@ const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
 const jobListings = require("../AllDetails.json");
+const cors = require("cors");
 
 const connect = () => {
    return mongoose.connect(
       "mongodb+srv://adnan:adnan@cluster0.rlrcf.mongodb.net/todo?retryWrites=true&w=majority"
    );
 };
+app.use(cors());
 
 app.listen(5000, async () => {
    try {
