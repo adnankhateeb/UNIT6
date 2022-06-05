@@ -42,12 +42,18 @@ async function start() {
    let all = [];
 
    for (let i = 0; i < names.length; i++) {
-      all[i] = "Job Title: " + names[i] + " | Company: " + companies[i] + " | Location: " + locations[i] + "\n";
+      let obj = {
+         jobTitle: names[i],
+         company: companies[i],
+         location: locations[i],
+      };
+      all.push(obj);
    }
-   await fs.writeFile("names.txt", names.join("\r\n"));
-   await fs.writeFile("companies.txt", companies.join("\r\n"));
-   await fs.writeFile("locations.txt", locations.join("\r\n"));
-   await fs.writeFile("All Details", all);
+   console.log(all);
+   // await fs.writeFile("names.txt", names.join("\r\n"));
+   // await fs.writeFile("companies.txt", companies.join("\r\n"));
+   // await fs.writeFile("locations.txt", locations.join("\r\n"));
+   await fs.writeFile("AllDetails.json", JSON.stringify(all));
 
    await browser.close();
 }
