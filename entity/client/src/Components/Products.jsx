@@ -43,24 +43,11 @@ const Products = () => {
                id=""
                onChange={handleChange}
             >
-               <option>Sort By Price</option>
+               <option value="">Sort By Price</option>
                <option value="h2l">High To Low</option>
                <option value="l2h">Low To High</option>
             </Form.Select>
 
-            {/* <label htmlFor="filterCat">Filter By Category</label>
-            <select
-               className="filterClass"
-               name="filterCat"
-               id=""
-               onChange={handleFilter}
-            >
-               <option value="">-----</option>
-               <option value="health">Health</option>
-               <option value="hair">Hair</option>
-               <option value="kajal">Kajal</option>
-               <option value="face">Face</option>
-            </select> */}
             <Form.Select
                aria-label="Default select example"
                className="filterClass"
@@ -85,7 +72,7 @@ const Products = () => {
                            {e.bestseller}
                         </Card.Subtitle>
                      ) : null}
-                     <Card.Title>{e.title}</Card.Title>
+                     <Card.Title className={"title"}>{e.title}</Card.Title>
                      <Card.Subtitle className={"text-muted text-capitalize"}>
                         {e.category}
                      </Card.Subtitle>

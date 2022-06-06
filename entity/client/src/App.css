@@ -9,12 +9,13 @@
 }
 
 .cardBS:hover {
-   color: rgb(46, 129, 181);
+   color: steelblue;
    transform: scale(1.03);
    transition: 200ms ease-out;
    cursor: default;
    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
    z-index: 99;
+   font-weight: bolder !important;
 }
 .sorting {
    display: flex;
@@ -31,4 +32,9 @@
    flex: 1;
 
    margin-left: 2%;
+}
+
+.title {
+   font-size: 18px !important;
+   margin-top: 2%;
 }
