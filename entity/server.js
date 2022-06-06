@@ -44,8 +44,9 @@ const productSchema = new mongoose.Schema(
 
 const Products = new mongoose.model("products", productSchema);
 
-app.get("/", paginatedResults(), async (req, res) => {
+app.get("/products", paginatedResults(), async (req, res) => {
    try {
+      console.log(req.query);
       return res.json(res.paginatedResults);
    } catch (error) {
       return res.status(400).send({ error });
@@ -55,15 +56,30 @@ app.get("/", paginatedResults(), async (req, res) => {
 function paginatedResults() {
    return async (req, res, next) => {
       const page = parseInt(req.query.page) || 1;
-      const limit = parseInt(req.query.limit) || 10;
+      const limit = 12;
       const skipIndex = (page - 1) * limit;
       const results = {};
+      const sort = req.query.sort;
+      console.log("sort:", sort)
+      let sortBy;
+      if (sort === "h2l") {
+         sortBy = -1;
+      } else if (sort === "l2h") {
+         sortBy = 1;
+      } else {
+         sortBy = null;
+      }
+      console.log(sortBy)
 
       try {
+         let total = await Products.countDocuments({});
+         results.totalPages = Math.ceil(total / limit);
          results.products = await Products.find()
             .limit(limit)
             .skip(skipIndex)
+            .sort({ price: sortBy })
             .exec();
+
          res.paginatedResults = results;
          next();
       } catch (e) {
