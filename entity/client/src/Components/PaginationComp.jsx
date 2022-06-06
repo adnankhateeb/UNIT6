@@ -8,7 +8,7 @@ const PaginationComp = (props) => {
    const pages = new Array(props.totalPages).fill(null).map((v, i) => i + 1);
    return (
       <div className="paginationBs">
-         <Pagination size='lg'>
+         <Pagination size="lg">
             <Pagination.First
                onClick={() => {
                   setSearchParams({
@@ -22,7 +22,7 @@ const PaginationComp = (props) => {
                   setSearchParams({
                      page: Math.max(1, props.pageNumber),
                   });
-                  props.setPageNumber(Math.max(0, props.pageNumber));
+                  props.setPageNumber(Math.max(0, props.pageNumber - 1));
                }}
             />
             {pages.map((page) => (

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Card } from "react-bootstrap";
+import { Card, Form } from "react-bootstrap";
 import PaginationComp from "./PaginationComp";
 import { useSearchParams } from "react-router-dom";
 
@@ -7,14 +7,14 @@ const Products = () => {
    const [products, setProducts] = useState([]);
    const [pageNumber, setPageNumber] = useState(1);
    const [totalPages, setTotalPages] = useState(0);
-   const [sortBy, setSortBy] = useState(null);
-   const [filter, setFilter] = useState(null);
+   const [sortBy, setSortBy] = useState("");
+   const [filterBy, setFilterBy] = useState("");
 
    const [searchParams, setSearchParams] = useSearchParams();
 
    const getData = async () => {
       let data = await fetch(
-         `http://localhost:5000/products?page=${pageNumber}&limit=12&sort=${sortBy}`
+         `http://localhost:5000/products?page=${pageNumber}&limit=12&sort=${sortBy}&filter=${filterBy}`
       );
       data = await data.json();
       setProducts(data.products);
@@ -23,27 +23,57 @@ const Products = () => {
 
    const handleChange = (e) => {
       setSortBy(e.target.value);
-      setSearchParams({ page: pageNumber, sort: sortBy });
+   };
+
+   const handleFilter = (e) => {
+      setFilterBy(e.target.value);
    };
 
    useEffect(() => {
       getData();
-   }, [pageNumber, sortBy]);
+      setSearchParams({ page: pageNumber, sort: sortBy, filterBy: filterBy });
+   }, [pageNumber, sortBy, filterBy]);
    return (
       <>
          <div className="sorting">
-            <label htmlFor="sort">Sort By Price</label>
-            <select name="sort" id="" onChange={handleChange}>
-               <option value="">-----</option>
+            <Form.Select
+               aria-label="Default select example"
+               className="filterClass"
+               name="sort"
+               id=""
+               onChange={handleChange}
+            >
+               <option>Sort By Price</option>
                <option value="h2l">High To Low</option>
                <option value="l2h">Low To High</option>
-            </select>
+            </Form.Select>
 
-            <label htmlFor="filterCat">Filter</label>
-            <select name="filterCat" id="">
-               <option></option>
-               <option></option>
-            </select>
+            {/* <label htmlFor="filterCat">Filter By Category</label>
+            <select
+               className="filterClass"
+               name="filterCat"
+               id=""
+               onChange={handleFilter}
+            >
+               <option value="">-----</option>
+               <option value="health">Health</option>
+               <option value="hair">Hair</option>
+               <option value="kajal">Kajal</option>
+               <option value="face">Face</option>
+            </select> */}
+            <Form.Select
+               aria-label="Default select example"
+               className="filterClass"
+               name="filterCat"
+               id=""
+               onChange={handleFilter}
+            >
+               <option value="">Filter By Category</option>
+               <option value="health">Health</option>
+               <option value="hair">Hair</option>
+               <option value="kajal">Kajal</option>
+               <option value="face">Face</option>
+            </Form.Select>
          </div>
          <div className="container">
             {products.map((e) => (

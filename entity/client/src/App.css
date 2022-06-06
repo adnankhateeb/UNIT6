@@ -17,5 +17,18 @@
    z-index: 99;
 }
 .sorting {
+   display: flex;
+   width: 50%;
+   margin: auto;
    margin-bottom: 1%;
+}
+
+.sorting * {
+   flex: 1;
+}
+
+.filterClass {
+   flex: 1;
+
+   margin-left: 2%;
 }

@@ -46,7 +46,7 @@ const Products = new mongoose.model("products", productSchema);
 
 app.get("/products", paginatedResults(), async (req, res) => {
    try {
-      console.log(req.query);
+      // console.log(req.query);
       return res.json(res.paginatedResults);
    } catch (error) {
       return res.status(400).send({ error });
@@ -60,7 +60,8 @@ function paginatedResults() {
       const skipIndex = (page - 1) * limit;
       const results = {};
       const sort = req.query.sort;
-      console.log("sort:", sort)
+      let filterBy = req.query.filter || null;
+
       let sortBy;
       if (sort === "h2l") {
          sortBy = -1;
@@ -69,16 +70,27 @@ function paginatedResults() {
       } else {
          sortBy = null;
       }
-      console.log(sortBy)
 
       try {
          let total = await Products.countDocuments({});
          results.totalPages = Math.ceil(total / limit);
-         results.products = await Products.find()
-            .limit(limit)
-            .skip(skipIndex)
-            .sort({ price: sortBy })
-            .exec();
+
+         if (filterBy != null) {
+            console.log("filterBy:", filterBy);
+            results.products = await Products.find({ category: filterBy })
+               .limit(limit)
+               .skip(skipIndex)
+               .sort({ price: sortBy })
+               .lean()
+               .exec();
+         } else {
+            results.products = await Products.find()
+               .limit(limit)
+               .skip(skipIndex)
+               .sort({ price: sortBy })
+               .lean()
+               .exec();
+         }
 
          res.paginatedResults = results;
          next();
