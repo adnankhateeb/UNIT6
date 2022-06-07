@@ -58,7 +58,6 @@ router.patch("/:id/edit", async (req, res) => {
          { new: true}
       );
 
-      console.log("product:", productId);
       return res.status(200).send(findCategories);
    } catch (error) {
       console.log("error:", error);

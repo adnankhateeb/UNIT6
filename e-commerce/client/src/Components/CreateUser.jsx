@@ -3,15 +3,13 @@ import { Form, Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-const EditProduct = () => {
+const CreateUser = () => {
    const { id } = useParams();
    console.log("id:", id);
    const [formData, setFormData] = useState({
-      productName: "",
-      categories: "",
-      productImgLink: "",
-      productPrice: 0,
-      description: "",
+      email: "",
+      name: "",
+      address: "",
    });
 
    const handleChange = (e) => {
@@ -19,60 +17,51 @@ const EditProduct = () => {
    };
    const handleSubmit = async (e) => {
       e.preventDefault();
-      await axios.patch(`http://localhost:5000/products/${id}/edit`, formData);
+      console.log(formData);
+      await axios.post(`http://localhost:5000/users/create`, formData);
    };
    return (
       <div>
          <Form
             style={{
-               width: "30%",
+               width: "20%",
                margin: "auto",
                marginTop: "5%",
                marginBottom: "2%",
+               border: "1px solid #bdbdbd",
+               padding: "3%",
+               borderRadius: "15px",
             }}
          >
-            <h3>Edit Product</h3>
+            <h3>Create user</h3>
             <Form.Group className="mb-3" controlId="formBasicEmail">
-               <Form.Label>Product Name</Form.Label>
+               <Form.Label>Enter Name</Form.Label>
                <Form.Control
                   type="text"
                   placeholder=""
-                  name="productName"
+                  name="name"
                   onChange={handleChange}
                />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicEmail">
-               <Form.Label>Image Link</Form.Label>
+               <Form.Label>Enter email</Form.Label>
                <Form.Control
                   type="text"
                   placeholder=""
-                  name="productImgLink"
+                  name="email"
                   onChange={handleChange}
                />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
-               <Form.Label>Category</Form.Label>
+               <Form.Label>Enter address</Form.Label>
                <Form.Control
                   type="text"
                   placeholder=""
-                  name="categories"
-                  onChange={handleChange}
-               />
-               <Form.Text className="text-muted">
-                  You can add categories to the product
-               </Form.Text>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-               <Form.Label>Description</Form.Label>
-               <Form.Control
-                  as="textarea"
-                  rows={3}
-                  name="description"
+                  name="address"
                   onChange={handleChange}
                />
             </Form.Group>
-
             <Button variant="primary" type="submit" onClick={handleSubmit}>
                Submit
             </Button>
@@ -81,4 +70,4 @@ const EditProduct = () => {
    );
 };
 
-export default EditProduct;
+export default CreateUser;

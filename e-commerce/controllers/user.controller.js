@@ -15,8 +15,10 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/create", async (req, res) => {
+   console.log(req.body);
    try {
       const user = await User.create(req.body);
+      console.log("user:", user);
 
       return res.status(200).send({ user: user });
    } catch (error) {
@@ -27,8 +29,9 @@ router.post("/create", async (req, res) => {
 router.get("/:id", async (req, res) => {
    try {
       const user = await User.findById(req.params.id);
+      console.log("user:", user)
 
-      return res.status(200).send({ user: user });
+      return res.status(200).send(user);
    } catch (error) {
       return res.status(500).send({ error: error });
    }
@@ -47,7 +50,7 @@ router.patch("/:id/edit", async (req, res) => {
          user_id,
          {
             $addToSet: {
-               address: req.body.address,
+               address: req.body.address || user.address,
             },
             email: req.body.email || user.email,
             name: req.body.name || user.name,

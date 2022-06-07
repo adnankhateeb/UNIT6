@@ -48,7 +48,7 @@ router.get("/:id", async (req, res) => {
 
 router.patch("/:id/edit", async (req, res) => {
    try {
-       const brandId = req.params.id
+      const brandId = req.params.id;
       const brand = await Brands.findById(brandId);
       console.log("brandId:", brandId);
 
@@ -56,12 +56,23 @@ router.patch("/:id/edit", async (req, res) => {
          return res.status(404).send({ message: "No such brand found" });
       }
 
-      editBrand = await Brands.findByIdAndUpdate(brandId, req.body, {
-         new: true,
-      });
+      editBrand = await Brands.findByIdAndUpdate(
+         brandId,
+         {
+            $addToSet: {
+               products: req.body.products || brand.products,
+            },
+            brandName: req.body.brandName || brand.brandName,
+         },
+         {
+            new: true,
+         }
+      );
 
       return res.status(200).send(editBrand);
-   } catch (error) {}
+   } catch (error) {
+      return res.status(500).send({ error: error });
+   }
 });
 
 module.exports = router;

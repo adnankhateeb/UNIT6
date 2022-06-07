@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import { useParams } from "react-router-dom";
 import axios from "axios";
 
-const EditProduct = () => {
-   const { id } = useParams();
-   console.log("id:", id);
+const CreateProduct = () => {
+
    const [formData, setFormData] = useState({
       productName: "",
       categories: "",
@@ -19,7 +17,7 @@ const EditProduct = () => {
    };
    const handleSubmit = async (e) => {
       e.preventDefault();
-      await axios.patch(`http://localhost:5000/products/${id}/edit`, formData);
+      await axios.post(`http://localhost:5000/products/create`, formData);
    };
    return (
       <div>
@@ -31,7 +29,7 @@ const EditProduct = () => {
                marginBottom: "2%",
             }}
          >
-            <h3>Edit Product</h3>
+            <h3>Create Product</h3>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                <Form.Label>Product Name</Form.Label>
                <Form.Control
@@ -64,6 +62,18 @@ const EditProduct = () => {
                </Form.Text>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
+               <Form.Label>Price</Form.Label>
+               <Form.Control
+                  type="text"
+                  placeholder=""
+                  name="productPrice"
+                  onChange={handleChange}
+               />
+               <Form.Text className="text-muted">
+                  You can add categories to the product
+               </Form.Text>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
                <Form.Label>Description</Form.Label>
                <Form.Control
                   as="textarea"
@@ -81,4 +91,4 @@ const EditProduct = () => {
    );
 };
 
-export default EditProduct;
+export default CreateProduct;
