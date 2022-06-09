@@ -21,7 +21,6 @@ const Products = () => {
             <Link to={`/products/${e._id}`}>
                <Card
                   style={{ width: "18rem", height: "400px" }}
-                  onClick={() => {}}
                >
                   <Card.Img
                      variant="top"

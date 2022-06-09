@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import Brands from "./Components/Brands";
 import CreateProduct from "./Components/CreateProduct";
 import CreateReview from "./Components/CreateReview";
 import CreateUser from "./Components/CreateUser";
@@ -30,6 +31,7 @@ function App() {
                path="/reviews/:productID/create"
                element={<CreateReview />}
             />
+            <Route path="/brands" element={<Brands />} />
          </Routes>
       </div>
    );

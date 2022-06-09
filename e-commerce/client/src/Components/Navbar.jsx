@@ -12,13 +12,13 @@ const NavBar = () => {
                </Navbar.Brand>
                <Nav className="rightSide">
                   <Link to="/" style={{ color: "white", marginRight: "5%" }}>
-                     Products
+                     View Products
                   </Link>
                   <Link
                      to="/users"
                      style={{ color: "white", marginRight: "5%" }}
                   >
-                     Users
+                     View Users
                   </Link>
                   <Link
                      to="/users/create"
@@ -31,6 +31,12 @@ const NavBar = () => {
                      style={{ color: "white", marginRight: "5%" }}
                   >
                      Create Product
+                  </Link>
+                  <Link
+                     to="/brands"
+                     style={{ color: "white", marginRight: "5%" }}
+                  >
+                     View Brands
                   </Link>
                </Nav>
             </Container>

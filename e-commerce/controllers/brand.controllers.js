@@ -6,7 +6,7 @@ const Brands = require("../models/brands.model");
 
 router.get("/", async (req, res) => {
    try {
-      const brand = await Brands.find().lean().exec();
+      const brand = await Brands.find().populate("products").lean().exec();
 
       return res.status(200).send(brand);
    } catch (error) {
@@ -35,7 +35,12 @@ router.post("/create", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
    try {
-      const brand = await Brands.findById(req.params.id);
+      const brand = await Brands.findById(req.params.id)
+         .populate("products")
+         .lean()
+         .exec();
+
+      console.log(brand);
 
       if (!brand) {
          return res.status(404).send({ message: "No such brand found" });
