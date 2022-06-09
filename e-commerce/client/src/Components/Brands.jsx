@@ -18,7 +18,7 @@ const Brands = () => {
       getBrands();
    }, []);
    return (
-      <div style={{ width: "20%", margin: "auto", marginTop: "4%" }}>
+      <div style={{ width: "25%", margin: "auto", marginTop: "4%" }}>
          <ListGroup as="ol" numbered>
             {brands.map((e) => (
                <ListGroup.Item
@@ -26,7 +26,8 @@ const Brands = () => {
                   className="d-flex justify-content-between align-items-start"
                >
                   <div className="fw-bol">
-                     <span className="fw-bold"> Brand:</span> {e.brandName}
+                     <span className="fw-bold"> Brand:</span>{" "}
+                     <b>{e.brandName}</b>
                   </div>
 
                   <div>
@@ -39,7 +40,7 @@ const Brands = () => {
                                  className="brand"
                               >
                                  <ListGroup.Item>
-                                    {product.productName}
+                                    <i style={{color: "teal"}}> {product.productName}</i>
                                  </ListGroup.Item>
                               </Link>
                            ))}
