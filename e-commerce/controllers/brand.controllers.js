@@ -75,4 +75,14 @@ router.patch("/:id/edit", async (req, res) => {
    }
 });
 
+router.delete("/:id/del", async (req, res) => {
+   try {
+      const brand = await Brands.findByIdAndDelete(req.params.id);
+
+      return res.status(200).send({ brand });
+   } catch (error) {
+      return res.status(500).send({ error: error });
+   }
+});
+
 module.exports = router;

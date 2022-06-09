@@ -69,9 +69,7 @@ const CreateProduct = () => {
                   name="productPrice"
                   onChange={handleChange}
                />
-               <Form.Text className="text-muted">
-                  You can add categories to the product
-               </Form.Text>
+              
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                <Form.Label>Description</Form.Label>

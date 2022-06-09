@@ -33,6 +33,8 @@ const ProductShowCase = () => {
             </Card.Subtitle>
             <Card.Text>Description: {product.description}</Card.Text>
             <Link to={`/products/${product._id}/edit`}>Edit</Link>
+            <Link to ={`/reviews/${product._id}`}>Reviews</Link>
+            <Link to={`/reviews/${product._id}/create`}>Create Review</Link>
          </Card>
       </div>
    );
