@@ -100,12 +100,15 @@ router.get("/all/stats", async (req, res) => {
             $project: {
                month: { $month: "$createdAt" },
                sales: { $sum: "$Products.productPrice" },
+               count: { $sum: 1 },
             },
          },
+
          {
             $group: {
                _id: "$month",
                total: { $sum: "$sales" },
+               count: { $sum: "$count" },
             },
          },
          {

@@ -32,12 +32,13 @@ const ShowInfo = () => {
    }, []);
    return (
       <div style={{ width: "30%", margin: "auto", marginTop: "3%" }}>
-      <h2>Stats for the last one year</h2>
+         <h2>Stats for the last one year</h2>
          <Table striped bordered hover>
             <thead>
                <tr>
                   <th>#</th>
                   <th>Month</th>
+                  <th>Total Orders</th>
                   <th>Total Sales</th>
                </tr>
             </thead>
@@ -47,6 +48,7 @@ const ShowInfo = () => {
                      <tr>
                         <td>{i + 1}</td>
                         <td>{allMonths[e._id - 1]}</td>
+                        <td>{e.count}</td>
                         <td>₹ {e.total}</td>
                      </tr>
                   );
