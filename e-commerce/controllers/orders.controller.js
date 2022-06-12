@@ -81,6 +81,47 @@ router.get("/:userID", async (req, res) => {
    }
 });
 
+router.get("/all/stats", async (req, res) => {
+   const date = new Date();
+   const lastYear = new Date(date.setMonth(date.getMonth() - 12));
+
+   try {
+      const totalSales = await Orders.aggregate([
+         { $match: { createdAt: { $gte: lastYear } } },
+         {
+            $lookup: {
+               from: "products",
+               localField: "productID",
+               foreignField: "_id",
+               as: "Products",
+            },
+         },
+         {
+            $project: {
+               month: { $month: "$createdAt" },
+               sales: { $sum: "$Products.productPrice" },
+            },
+         },
+         {
+            $group: {
+               _id: "$month",
+               total: { $sum: "$sales" },
+            },
+         },
+         {
+            $sort: {
+               _id: 1,
+            },
+         },
+      ]);
+      console.log(totalSales);
+      return res.status(200).json(totalSales);
+   } catch (err) {
+      console.log("err:", err);
+      return res.status(500).json(err);
+   }
+});
+
 router.delete("/delete/:id", async (req, res) => {
    try {
       const order = await Orders.findByIdAndDelete(req.params.id);

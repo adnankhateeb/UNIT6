@@ -11,6 +11,7 @@ import NavBar from "./Components/Navbar";
 import Products from "./Components/Products";
 import ProductShowCase from "./Components/ProductShowCase";
 import Review from "./Components/Review";
+import ShowInfo from './Components/ShowInfo';
 import UserDetails from "./Components/UserDetails";
 import Users from "./Components/Users";
 import ViewOrders from './Components/ViewOrders';
@@ -36,6 +37,7 @@ function App() {
             />
             <Route path="/brands" element={<Brands />} />
             <Route path="/orders/:userID" element={<ViewOrders />} />
+            <Route path="/orders/stats" element={<ShowInfo />} />
          </Routes>
       </div>
    );

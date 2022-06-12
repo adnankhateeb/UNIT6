@@ -38,6 +38,12 @@ const NavBar = () => {
                   >
                      View Brands
                   </Link>
+                  <Link
+                     to="/orders/stats"
+                     style={{ color: "white", marginRight: "5%" }}
+                  >
+                     View Stats
+                  </Link>
                </Nav>
             </Container>
          </Navbar>

@@ -21,21 +21,26 @@ const Review = () => {
 
    return (
       <div style={{ width: "max-content", margin: "auto", marginTop: "4%" }}>
-         <ListGroup as="ol" numbered>
-            {reviews.map((e) => (
-               <ListGroup.Item
-                  as="li"
-                  className="d-flex justify-content-between align-items-start"
-               >
-                  <div className="ms-2 me-auto">
-                     <div className="fw-bol">
-                        <span className="fw-bold"> User:</span> {e.userID.name}
+         {reviews.length ? (
+            <ListGroup as="ol" numbered>
+               {reviews.map((e) => (
+                  <ListGroup.Item
+                     as="li"
+                     className="d-flex justify-content-between align-items-start"
+                  >
+                     <div className="ms-2 me-auto">
+                        <div className="fw-bol">
+                           <span className="fw-bold"> User:</span>{" "}
+                           {e.userID.name}
+                        </div>
+                        <span className="fw-bold"> Review:</span> {e.reviewText}
                      </div>
-                     <span className="fw-bold"> Review:</span> {e.reviewText}
-                  </div>
-               </ListGroup.Item>
-            ))}
-         </ListGroup>
+                  </ListGroup.Item>
+               ))}
+            </ListGroup>
+         ) : (
+            <h1>No reviews for this product yet!</h1>
+         )}
       </div>
    );
 };
