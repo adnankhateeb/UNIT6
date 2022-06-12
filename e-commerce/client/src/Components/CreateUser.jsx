@@ -19,6 +19,7 @@ const CreateUser = () => {
       e.preventDefault();
       console.log(formData);
       await axios.post(`http://localhost:5000/users/create`, formData);
+      alert("Registered!")
    };
    return (
       <div>

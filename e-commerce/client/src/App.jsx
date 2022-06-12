@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Brands from "./Components/Brands";
+import CreateOrder from "./Components/CreateOrder";
 import CreateProduct from "./Components/CreateProduct";
 import CreateReview from "./Components/CreateReview";
 import CreateUser from "./Components/CreateUser";
@@ -12,6 +13,7 @@ import ProductShowCase from "./Components/ProductShowCase";
 import Review from "./Components/Review";
 import UserDetails from "./Components/UserDetails";
 import Users from "./Components/Users";
+import ViewOrders from './Components/ViewOrders';
 
 function App() {
    return (
@@ -27,11 +29,13 @@ function App() {
             <Route path="/users/:id" element={<UserDetails />} />
             <Route path="/users/:id/edit" element={<EditUser />} />
             <Route path="/reviews/:productId" element={<Review />} />
+            <Route path="/order/:productId" element={<CreateOrder />} />
             <Route
                path="/reviews/:productID/create"
                element={<CreateReview />}
             />
             <Route path="/brands" element={<Brands />} />
+            <Route path="/orders/:userID" element={<ViewOrders />} />
          </Routes>
       </div>
    );

@@ -15,10 +15,10 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/create", async (req, res) => {
-   console.log(req.body);
+   // console.log(req.body);
    try {
       const user = await User.create(req.body);
-      console.log("user:", user);
+      // console.log("user:", user);
 
       return res.status(200).send({ user: user });
    } catch (error) {
@@ -29,7 +29,7 @@ router.post("/create", async (req, res) => {
 router.get("/:id", async (req, res) => {
    try {
       const user = await User.findById(req.params.id);
-      console.log("user:", user)
+      // console.log("user:", user)
 
       return res.status(200).send(user);
    } catch (error) {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 
 const ProductShowCase = () => {
@@ -9,9 +9,10 @@ const ProductShowCase = () => {
    const getProduct = async () => {
       let data = await fetch(`http://localhost:5000/products/${id}`);
       data = await data.json();
-      console.log(data);
       setProduct(data);
    };
+
+   
 
    useEffect(() => {
       getProduct();
@@ -21,7 +22,7 @@ const ProductShowCase = () => {
          style={{
             textAlign: "center",
             margin: "auto",
-            width: "50%",
+            width: "35%",
             marginTop: "2%",
          }}
       >
@@ -35,6 +36,7 @@ const ProductShowCase = () => {
             <Link to={`/products/${product._id}/edit`}>Edit</Link>
             <Link to ={`/reviews/${product._id}`}>Reviews</Link>
             <Link to={`/reviews/${product._id}/create`}>Create Review</Link>
+            <Link to={`/order/${product._id}`}><Button>Order Now</Button></Link>
          </Card>
       </div>
    );

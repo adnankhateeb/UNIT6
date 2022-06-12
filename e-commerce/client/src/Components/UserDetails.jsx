@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const UserDetails = () => {
    const [user, setUser] = useState({});
@@ -22,7 +22,14 @@ const UserDetails = () => {
    }, []);
    return (
       <div>
-         <Card style={{ width: "20%", padding: "3%", margin: "auto", marginTop: "3%" }}>
+         <Card
+            style={{
+               width: "20%",
+               padding: "3%",
+               margin: "auto",
+               marginTop: "3%",
+            }}
+         >
             <Card.Title>Name: {user.name}</Card.Title>
             <Card.Text>Email: {user.email}</Card.Text>
             <span>Addresses :</span>{" "}
@@ -35,7 +42,14 @@ const UserDetails = () => {
                     </span>
                  ))
                : null}
-               <Link to={`/users/${user._id}/edit`}>Edit</Link>
+            <Link to={`/users/${user._id}/edit`}>
+               <Button variant="secondary" style={{ margin: "5px" }}>
+                  Edit
+               </Button>
+            </Link>
+            <Link to={`/orders/${user._id}`}>
+               <Button>View Orders</Button>
+            </Link>
          </Card>
       </div>
    );

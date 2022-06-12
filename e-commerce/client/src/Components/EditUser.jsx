@@ -18,7 +18,9 @@ const EditUser = () => {
    const handleSubmit = async (e) => {
       e.preventDefault();
       console.log(formData);
-      await axios.post(`http://localhost:5000/users/${id}/edit`, formData);
+      await axios
+         .patch(`http://localhost:5000/users/${id}/edit`, formData)
+         .then(() => alert("Details Updated!"));
    };
    return (
       <div>

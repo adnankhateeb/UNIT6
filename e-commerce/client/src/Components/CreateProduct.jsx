@@ -3,7 +3,6 @@ import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 
 const CreateProduct = () => {
-
    const [formData, setFormData] = useState({
       productName: "",
       categories: "",
@@ -18,6 +17,7 @@ const CreateProduct = () => {
    const handleSubmit = async (e) => {
       e.preventDefault();
       await axios.post(`http://localhost:5000/products/create`, formData);
+      alert("Product Created!");
    };
    return (
       <div>
@@ -69,7 +69,6 @@ const CreateProduct = () => {
                   name="productPrice"
                   onChange={handleChange}
                />
-              
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                <Form.Label>Description</Form.Label>

@@ -23,10 +23,7 @@ router.get("/:productID", async (req, res) => {
 router.post("/:productID", async (req, res) => {
    try {
       const productID = req.params.productID;
-      console.log("req.params:", req.params);
-      console.log("productID:", productID);
-      console.log(req.body);
-
+      
       const found = await Products.findById({ _id: productID }).lean().exec();
       if (!found) {
          return res.status(404).send("Product Not Found");

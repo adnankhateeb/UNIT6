@@ -19,9 +19,7 @@ const Products = () => {
       <div className="container">
          {products.map((e) => (
             <Link to={`/products/${e._id}`}>
-               <Card
-                  style={{ width: "18rem", height: "400px" }}
-               >
+               <Card style={{ width: "18rem", height: "470px" }}>
                   <Card.Img
                      variant="top"
                      src={e.productImgLink}
@@ -31,7 +29,8 @@ const Products = () => {
                      <Card.Title className={"title"}>
                         {e.productName}
                      </Card.Title>
-                     <Card.Text>₹ {e.productPrice}</Card.Text>
+                     <Card.Text>Price: ₹ {e.productPrice}</Card.Text>
+                     <Card.Text>Rating: {e.rating.$numberDecimal}</Card.Text>
                   </Card.Body>
                </Card>
             </Link>
